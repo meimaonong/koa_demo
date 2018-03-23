@@ -4,6 +4,6 @@ const DEV_PORT = 5233
 const SERVER_PORT = 5234
 
 module.exports = {
-    DEV_PORT,
-    SERVER_PORT,
+  DEV_PORT,
+  SERVER_PORT,
 }

@@ -7,7 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 // 系统配置
-const Sys = require('./../config/sys')
+const Sys = require('./../config/sys.conf')
 
 //环境标识
 const isProd = process.env.NODE_ENV === 'production' ? true : false
