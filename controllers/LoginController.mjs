@@ -2,7 +2,7 @@
 
 const BaseController = require('./../components/BaseController')
 
-class <%= htmlWebpackPlugin.options.title.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase()) %>Controller extends BaseController {
+class LoginController extends BaseController {
 
   /**
    * 构造函数
@@ -21,4 +21,4 @@ class <%= htmlWebpackPlugin.options.title.toLowerCase().replace(/( |^)[a-z]/g, (
 
 }
 
-module.exports = <%= htmlWebpackPlugin.options.title.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase()) %>Controller;
+module.exports = LoginController;

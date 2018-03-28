@@ -9,9 +9,9 @@
 <body>
 <div id="app"></div>
 <% if (process.env.NODE_ENV === 'production') { %>
-<script src="/vendor/vendor.dll.js"></script>
+<%= require('html-loader!./vendor.html') %>
 <% } else { %>
-<script src="/vendor/vendor.dll.dev.js"></script>
+<%= require('html-loader!./vendor-dev.html') %>
 <% } %>
 </body>
 </html>

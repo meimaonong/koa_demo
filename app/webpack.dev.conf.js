@@ -1,12 +1,16 @@
 var webpack = require('webpack')
 var merge = require('webpack-merge')
-var baseWebpackConfig = require('./webpack.base.conf')
+
+// 目录配置
+const Dir = require('./../config/dir.conf')
+
+var baseWebpackConfig = require(`${Dir.app}/webpack.base.conf`)
 
 module.exports = merge(baseWebpackConfig, {
     plugins: [
         new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./../public/vendor/vendor-manifest-dev.json')
+            context: Dir.root,
+            manifest: require(`${Dir.dist}/vendor_dev/vendor-manifest-dev.json`)
         })
     ],
     devtool: '#eval-source-map'

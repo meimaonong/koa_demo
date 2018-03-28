@@ -1,25 +1,31 @@
-var webpack = require('webpack')
-var merge = require('webpack-merge')
-//var CleanWebpackPlugin = require('clean-webpack-plugin')
-var baseWebpackConfig = require('./app/webpack.base.conf')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
+// 目录配置
+const Dir = require('./../config/dir.conf')
+
+var CleanWebpackPlugin = require('clean-webpack-plugin')
+var baseWebpackConfig = require(`${Dir.app}/webpack.base.conf`)
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = merge(baseWebpackConfig, {
   plugins: [
-    /* new CleanWebpackPlugin(
+    new CleanWebpackPlugin(
       [
-        'dist'
+        `${Dir.dist}/res`,
+        `${Dir.controllers_dir}`
       ], 
       {
-        root: __dirname,
-        exclude: ['vendor'],
+        root: Dir.root,
+        exclude: ['SiteController.mjs', 'AjaxController.mjs', 'FileController.mjs'],
         verbose: true,
         dry: false
       }
-    ), */
+    ),
     new webpack.DllReferencePlugin({
-        context: __dirname,
-        manifest: require('./public/vendor/vendor-manifest.json')
+      context: Dir.root,
+      manifest: require(`${Dir.dist}/vendor/vendor-manifest.json`)
     }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',

@@ -2,7 +2,7 @@
 
 const BaseController = require('./../components/BaseController')
 
-class SiteController extends BaseController {
+class BookController extends BaseController {
 
   /**
    * 构造函数
@@ -16,19 +16,9 @@ class SiteController extends BaseController {
    * 首页
    */
   async actionIndex() {
-    // this.ctx.body = {name: 'hello world'}
-    await this.ctx.render('site/index', {
-      btnName: 'GoGoGo'
-    })
-  }
-
-  /**
-   * 404
-   */
-  async actionError() {
-
+    await this.ctx.render('site/index')
   }
 
 }
 
-module.exports = SiteController;
+module.exports = BookController;

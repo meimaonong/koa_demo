@@ -2,7 +2,7 @@
 
 const BaseController = require('./../components/BaseController')
 
-class UserAccountController extends BaseController {
+class AccountController extends BaseController {
 
   /**
    * 构造函数
@@ -16,9 +16,9 @@ class UserAccountController extends BaseController {
    * 首页
    */
   async actionIndex() {
-    console.log('UserAccount index')
+    await this.ctx.render('site/index')
   }
 
 }
 
-module.exports = UserAccountController;
+module.exports = AccountController;

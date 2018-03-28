@@ -2,7 +2,7 @@
 
 const BaseController = require('./../components/BaseController')
 
-class UserController extends BaseController {
+class OrderController extends BaseController {
 
   /**
    * 构造函数
@@ -16,16 +16,9 @@ class UserController extends BaseController {
    * 首页
    */
   async actionIndex() {
-    console.log('user index')
-  }
-
-  /**
-   * 404
-   */
-  async actionInfo() {
-
+    await this.ctx.render('site/index')
   }
 
 }
 
-module.exports = UserController;
+module.exports = OrderController;
