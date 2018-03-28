@@ -49,6 +49,42 @@ class FileController extends BaseController {
   }
 
   /**
+   * 生成缩略图
+   */
+  createPics_1(saveFile, uploads_dir, fileName) {
+    // 尺寸项
+    const sizeList = [1280, 1080, 800, 600, 400, 200]
+    let count = 0
+
+    return new Promise((resolve, reject)=>{
+      // 生成对应尺寸图片
+      sizeList.forEach((item) => {
+
+        const resizeDir = `${uploads_dir}/w${item}`
+        const resizeFile = `${resizeDir}/${fileName}`
+        Utils.creatFolder(resizeDir)
+
+        sharp(saveFile)
+        .resize(item, null)
+        .toFile(resizeFile, function (err) {
+          if (err) {
+            console.log(err)
+          } else {
+            // console.log('Completed!')
+          }
+          count++
+          if (count == sizeList.length) {
+            resolve()
+          }
+        })
+
+      })
+
+    })
+
+  }
+
+  /**
    * 首页
    */
   async actionImageUpload() {
@@ -66,13 +102,6 @@ class FileController extends BaseController {
 
     // 创建目录，目录存在则不做任何操作
     Utils.creatFolder(uploads_dir)
-    // if (!fs.existsSync(uploads_dir)) {
-    //   console.log('create')
-    //   mkdirp.sync(uploads_dir, {}, function (err) {
-    //     if (err) console.error(err)
-    //     else console.log('pow!')
-    //   })
-    // }
     
     // 扩展名
     const ext = data.name.substr( data.name.lastIndexOf(".") + 1 )
@@ -81,76 +110,40 @@ class FileController extends BaseController {
     // 文件保存路径
     const saveFile = `${uploads_dir}/${fileName}`
 
-    
-
     // 保存文件
     const reader = fs.createReadStream(data.path)
     const stream = fs.createWriteStream(saveFile)
-    
-    /*
-    stream.on('finish', async () => {
-      try {
-        const dimensions = await sizeOf(saveFile)
-        console.log(dimensions.width, dimensions.height)
-         
-      } catch (err) {
-        console.error(err);
-      }
-    })
-    */
-
-
     reader.pipe(stream)
 
+    // 获取图片尺寸
     const dimensions = await this.getImageDimensions(stream, saveFile)
 
-    // await this.sleep(3000)
-    // await Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     resolve()
-    //   }, 3000)
-    // })
-    // (function(){console.log('now')})(); 
-    
- 
-    // await new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     resolve()
-    //   }, 3000);
-    // })
-    // await this.sleep(1000)
-    
-    // that.ctx.body = { status: 200 } 
+    // 生成所缩略图
+    await this.createPics_1(saveFile, uploads_dir, fileName)
 
-    // 创建目录，目录存在则不做任何操作
-    Utils.creatFolder(`${uploads_dir}/w240h240`)
-    // if (!fs.existsSync(`${uploads_dir}/w240h240`)) {
-    //   console.log('create two')
-    //   mkdirp.sync(`${uploads_dir}/w240h240`, {}, function (err) {
-    //     if (err) console.error(err)
-    //     else console.log('pow!')
-    //   })
-    // }
+    // $res = [
+    //   'code' => 0,
+    //   'data' => [
+    //     'img_name'  => $fileOriginName,
+    //     'img_url'   => ($dir_dest . $dayDir.'/'),
+    //     'img_width' => $imageWidth,
+    //     'img_height' => $imageHeight,
+    //     'img_ratio' => $ratio,
+    //     'msg'       => 'File uploaded with success'
+    //   ]
+    // ];
 
-    // console.log(saveFile, `${uploads_dir}/w240h240/${fileName}`)
-
-    // var readStream = fs.createReadStream(saveFile)
-
-    const resizeFile = `${uploads_dir}/w240h240/${fileName}`
-    
-
-    sharp(saveFile)
-      .resize(150, 150)
-      .toFile(resizeFile, function (err) {
-        if (err) {
-          console.log(err)
-        } else {
-          console.log('Completed!')
-        }
-      })
-
-      console.log('end', dimensions)
-      that.ctx.body = { status: 200 } 
+    that.ctx.body = { 
+      code: 0,
+      data: {
+        img_name: fileName,
+        img_url: uploads_dir.replace(Dir.root, '') + '/',
+        img_width: dimensions.width,
+        img_height: dimensions.height,
+        img_ratio: Number((dimensions.width / dimensions.height).toFixed(2)),
+      },
+      msg: 'File uploaded with success',
+    } 
 
   }
 
