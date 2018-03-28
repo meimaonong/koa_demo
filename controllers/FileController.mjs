@@ -121,18 +121,6 @@ class FileController extends BaseController {
     // 生成所缩略图
     await this.createPics_1(saveFile, uploads_dir, fileName)
 
-    // $res = [
-    //   'code' => 0,
-    //   'data' => [
-    //     'img_name'  => $fileOriginName,
-    //     'img_url'   => ($dir_dest . $dayDir.'/'),
-    //     'img_width' => $imageWidth,
-    //     'img_height' => $imageHeight,
-    //     'img_ratio' => $ratio,
-    //     'msg'       => 'File uploaded with success'
-    //   ]
-    // ];
-
     that.ctx.body = { 
       code: 0,
       data: {
