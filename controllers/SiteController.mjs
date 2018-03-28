@@ -2,8 +2,6 @@
 
 const BaseController = require('./../components/BaseController')
 
-const axios = require('axios')
-
 class SiteController extends BaseController {
 
   /**
@@ -20,7 +18,7 @@ class SiteController extends BaseController {
   async actionIndex() {
     let that = this
 
-    await that.httpPost(
+    /* await that.httpPost(
       'http://x.api.org/v1/book/get-book', 
       {
         "book_id": 5
@@ -30,11 +28,11 @@ class SiteController extends BaseController {
         // that.ctx.body = res
         that.ctx.body = that.ctx.request.header
       }
-    )
+    ) */
     
-    // await this.ctx.render('site/index', {
-    //   btnName: 'GoGoGo'
-    // })
+    await this.ctx.render('site/index', {
+      btnName: 'GoGoGo'
+    })
 
   }
 

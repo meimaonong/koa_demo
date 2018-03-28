@@ -7,6 +7,7 @@ module.exports = {
   root, // 根路径
   app: path.join(root, 'app'), // app 路径
   public: path.join(root, 'public'), // 静态文件路径
+  uploads: path.join(root, 'uploads'), // 静态文件路径
   dist: path.join(root, 'public/dist'), // 前端文件版本
   static: path.join(root, 'public/dist/static'), // 静态文件图片、字体
   src: path.join(root, 'app/src'), // webpack src路径

@@ -2,8 +2,6 @@
 
 const BaseController = require('./../components/BaseController')
 
-const axios = require('axios')
-
 class AjaxController extends BaseController {
 
   /**
@@ -21,6 +19,7 @@ class AjaxController extends BaseController {
     const that = this
     // 获取参数
     that.getRequestData()
+    
     // 获取接口
     const apiAction = that.requestData['func']
     // 删除接口在对象中的属性 

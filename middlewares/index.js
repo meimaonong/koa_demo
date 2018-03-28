@@ -1,5 +1,6 @@
 const path = require('path')
-const bodyParser = require('koa-bodyparser')
+// const bodyParser = require('koa-bodyparser')
+const koaBody = require('koa-body')
 const nunjucks = require('koa-nunjucks-2')
 const json = require('koa-json')
 const staticFiles = require('koa-static')
@@ -22,12 +23,17 @@ module.exports = (app, router) => {
   }))
 
   // bodyParser
-  app.use(bodyParser())
+  // app.use(bodyParser())
+
+  // koa-body
+  app.use(koaBody({ multipart: true }))
 
   // json
   app.use(json())
 
   // 调用路由中间件
-  app.use(router.routes())
+  app
+    .use(router.routes())
+    .use(router.allowedMethods())
 
 }
