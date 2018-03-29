@@ -5,6 +5,10 @@ const Api = require('./../config/api.conf')
 
 class BaseController{
 
+  /**
+   * 构造函数
+   * @param {args} args 
+   */
   constructor(args) {
 
     // httpClient
